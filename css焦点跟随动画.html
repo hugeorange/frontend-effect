@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css实现焦点旋转动画</title>
+</head>
+<style>
+    .mouse-point {
+      position: fixed;
+      border: 5px solid;
+    }
+    .wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      border: 1px solid red;
+      animation: myrotate 1.5s infinite;
+      animation-timing-function: linear;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+    .inner {
+      border: 20px solid orange;
+      border-radius: 50%;
+    }
+
+    @keyframes myrotate {
+      0% {
+        transform: rotate(0deg);
+        transform-origin: 0% 0%;
+      }
+      100% {
+        transform: rotate(360deg);
+        transform-origin: 0% 0%;
+      }
+    }
+</style>
+<body>
+  <h3>css实现焦点旋转动画</h3>
+  <div class="mouse-point">
+    <div class="wrap">
+      <div class="inner"></div>
+    </div>
+  </div>
+</body>
+<script>
+  var mousePoint = document.querySelector('.mouse-point');
+  document.addEventListener('mousemove', e => {
+    var x = e.clientX;
+    var y = e.clientY;
+    setPointPos(x, y);
+  })
+
+  function setPointPos(x, y) {
+    mousePoint.style.left = x + 'px';
+    mousePoint.style.top = y + 'px';
+  }
+</script>
+</html>

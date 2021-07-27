@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>js实现焦点旋转动画</title>
+</head>
+<style>
+    .mouse-point {
+      position: fixed;
+      border: 5px solid;
+    }
+
+    .inner {
+      position: absolute;
+      border: 10px solid orange;
+      width: 5px;
+      height: 5px;
+      background-color: red;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .wrap {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: 1px solid red;
+    }
+
+</style>
+<body>
+  <h3>js实现焦点旋转动画</h3>
+  <div class="mouse-point">
+      <div class="inner"></div>
+      <div class="wrap"></div>
+  </div>
+</body>
+<script>
+  var mousePoint = document.querySelector('.mouse-point');
+  var inner = document.querySelector('.inner');
+
+  document.addEventListener('mousemove', e => {
+    var x = e.clientX;
+    var y = e.clientY;
+    setPointPos(x, y);
+  })
+
+  function setPointPos(x, y) {
+    mousePoint.style.left = x + 'px';
+    mousePoint.style.top = y + 'px';
+  }
+
+  // 根据角度计算 x, y坐标
+  function calcInnerPos(deg) {
+    var x = 100 * Math.cos(deg * 3.14/180)
+    var y = 100 * Math.sin(deg * 3.14/180)
+    return {
+      x,
+      y
+    }
+  }
+
+  // 设置inner坐标
+  function setInnerPos(x, y) {
+    inner.style.left = x + 'px';
+    inner.style.top = y + 'px';
+  }
+
+  var deg = 0;
+
+  (function animateLoop() {
+    if (deg === 360) {
+      deg = 0
+    }
+    deg = deg + 4
+    const { x, y } = calcInnerPos(deg)
+    console.log('x==>', x, y, deg)
+    setInnerPos(x, y)
+    window.requestAnimationFrame(animateLoop)
+  })()
+  
+</script>
+</html>

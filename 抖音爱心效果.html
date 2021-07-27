@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .heart{
+            background-image: url("./image/web_heart_animation.png");
+            background-position: left;
+            background-repeat: no-repeat;
+            width: 100px;
+            height: 100px;
+        }
+        .animation {
+            animation: position 1s steps(28);
+        }
+        @keyframes position {
+            to{
+                background-position: right;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart"></div>
+</body>
+<script>
+    var heart = document.querySelector('.heart')
+    heart.addEventListener('click', e => {
+        let timer
+        heart.classList.add('animation')
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+            heart.classList.remove('animation')
+        }, 1000);
+    })
+</script>
+</html>
